@@ -215,7 +215,7 @@ export default function PortfolioFullStack() {
         <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center relative z-10">
           <div className="text-2xl font-black">
             <span className="bg-gradient-to-r from-sky-600 to-blue-600 bg-clip-text text-transparent">
-              Robby_Deve
+              RH.
             </span>
           </div>
           <div className="hidden md:flex gap-12">
