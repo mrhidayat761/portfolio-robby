@@ -1,12 +1,18 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { ChevronRight, Code2, Server, Database, Zap, Mail, MessageCircle } from 'lucide-react';
-
+// Cari baris ini, dan tambahkan Menu, X
+import { ChevronRight, Code2, Server, Database, Zap, Mail, MessageCircle, Menu, X } from 'lucide-react';
+// Tambahkan komponen ini di atas 'export default function PortfolioFullStack'
+const WhatsAppLogo = ({ size = 24, className = "" }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" className={className} xmlns="http://www.w3.org/2000/svg">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+  </svg>
+);
 export default function PortfolioFullStack() {
   const [activeTab, setActiveTab] = useState('frontend');
   const [scrolled, setScrolled] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false);
+
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
@@ -160,8 +166,8 @@ export default function PortfolioFullStack() {
     { category: "Best Practices", items: ["Clean Code", "Testing", "Security", "Performance"] }
   ];
 
-  const whatsappNumber = "62YOUR_PHONE_NUMBER"; // GANTI DENGAN NOMOR ASLI
-  const email = "mrhidayat761@GMAIL.COM";
+  const whatsappNumber = "6282223750826"; // GANTI DENGAN NOMOR ASLI
+  const email = "mrhidayat761@gmail.com";
 
   return (
     <div className="bg-gradient-to-br from-sky-50 via-blue-50 to-cyan-50 text-slate-900 overflow-hidden">
@@ -172,42 +178,44 @@ export default function PortfolioFullStack() {
         <div className="absolute top-1/2 left-1/2 w-80 h-80 bg-cyan-200/20 rounded-full blur-3xl"></div>
       </div>
 
-      {/* Floating Contact Button */}
-      <div className="fixed bottom-8 right-8 z-40 flex flex-col gap-3">
-        <a
-          href={`https://wa.me/${whatsappNumber}`}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="w-16 h-16 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-full flex items-center justify-center shadow-lg hover:shadow-xl hover:scale-110 transition transform group"
-          title="Hubungi via WhatsApp"
-        >
-          <MessageCircle size={28} />
-          <span className="absolute right-20 bg-green-600 text-white px-3 py-1 rounded-lg text-sm opacity-0 group-hover:opacity-100 transition whitespace-nowrap">
-            Chat di WhatsApp
-          </span>
-        </a>
-        <a
-          href={`mailto:${email}`}
-          className="w-16 h-16 bg-gradient-to-r from-sky-600 to-blue-600 text-white rounded-full flex items-center justify-center shadow-lg hover:shadow-xl hover:scale-110 transition transform group"
-          title="Kirim Email"
-        >
-          <Mail size={28} />
-          <span className="absolute right-20 bg-blue-600 text-white px-3 py-1 rounded-lg text-sm opacity-0 group-hover:opacity-100 transition whitespace-nowrap">
-            Email
-          </span>
-        </a>
-      </div>
+     {/* Floating Contact Button */}
+           <div className="fixed bottom-8 right-8 z-40 flex flex-col gap-3">
+             <a
+               href={`https://wa.me/${whatsappNumber}`}
+               target="_blank"
+               rel="noopener noreferrer"
+               className="w-16 h-16 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-full flex items-center justify-center shadow-lg hover:shadow-xl hover:scale-110 transition transform group"
+               title="Hubungi via WhatsApp"
+             >
+               {/* INI YANG DITAMBAHKAN: Ikon WhatsApp Custom */}
+               <WhatsAppLogo size={28} />
+
+               <span className="absolute right-20 bg-green-600 text-white px-3 py-1 rounded-lg text-sm opacity-0 group-hover:opacity-100 transition whitespace-nowrap">
+                 Chat di WhatsApp
+               </span>
+             </a>
+             <a
+               href={`mailto:${email}`}
+               className="w-16 h-16 bg-gradient-to-r from-sky-600 to-blue-600 text-white rounded-full flex items-center justify-center shadow-lg hover:shadow-xl hover:scale-110 transition transform group"
+               title="Kirim Email"
+             >
+               <Mail size={28} />
+               <span className="absolute right-20 bg-blue-600 text-white px-3 py-1 rounded-lg text-sm opacity-0 group-hover:opacity-100 transition whitespace-nowrap">
+                 Email
+               </span>
+             </a>
+           </div>
 
       {/* Navigation */}
       <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-        scrolled 
-          ? 'bg-white/70 backdrop-blur-xl shadow-sm border-b border-sky-200/50' 
+        scrolled
+          ? 'bg-white/70 backdrop-blur-xl shadow-sm border-b border-sky-200/50'
           : 'bg-white/40 backdrop-blur-md'
       }`}>
         <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center relative z-10">
           <div className="text-2xl font-black">
             <span className="bg-gradient-to-r from-sky-600 to-blue-600 bg-clip-text text-transparent">
-              ROBBY.DEV
+              RH.Dev
             </span>
           </div>
           <div className="hidden md:flex gap-12">
@@ -309,7 +317,7 @@ export default function PortfolioFullStack() {
                     </span>
                   </div>
                   <p className="text-slate-700 mb-6 text-sm">{tech.description}</p>
-                  
+
                   <div className="mb-2">
                     <div className="flex justify-between items-center mb-2">
                       <span className="text-xs font-semibold text-slate-600">Proficiency</span>
@@ -351,7 +359,7 @@ export default function PortfolioFullStack() {
                         {project.year}
                       </span>
                     </div>
-                    
+
                     <h4 className="font-semibold text-xs uppercase tracking-wide text-slate-600 mb-3 mt-6">Fitur Utama</h4>
                     <div className="flex flex-wrap gap-2">
                       {project.features.map((feature, i) => (
@@ -483,16 +491,18 @@ export default function PortfolioFullStack() {
             >
               <Mail size={20} /> Email
             </a>
+       <a
+         href={`https://wa.me/6282223750826`}
+         target="_blank"
+         rel="noopener noreferrer"
+         className="px-8 py-4 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-lg font-bold hover:shadow-lg hover:shadow-green-500/40 transition flex items-center justify-center gap-2"
+       >
+         {/* Ikon diganti jadi Logo WhatsApp Asli */}
+         <WhatsAppLogo size={20} />
+         WhatsApp
+       </a>
             <a
-              href={`https://wa.me/${whatsappNumber}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-8 py-4 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-lg font-bold hover:shadow-lg hover:shadow-green-500/40 transition flex items-center justify-center gap-2"
-            >
-              <MessageCircle size={20} /> WhatsApp
-            </a>
-            <a
-              href="https://github.com/robby"
+              href="https://github.com/mrhidayat761"
               target="_blank"
               rel="noopener noreferrer"
               className="px-8 py-4 border-2 border-sky-600 text-sky-700 rounded-lg font-bold hover:bg-sky-50 transition"
@@ -503,10 +513,12 @@ export default function PortfolioFullStack() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="relative z-10 py-12 px-6 border-t border-sky-200/50 text-center text-slate-600 bg-white/40 backdrop-blur-sm">
-        <p className="text-sm">© 2024 Robby Hidayat. Full-Stack Developer | React • Next.js • Node.js</p>
-      </footer>
+   // Ganti bagian footer paling bawah dengan ini:
+<footer className="py-8 text-center border-t border-sky-200/50 bg-white/40 backdrop-blur-sm">
+  <p className="text-slate-600 text-sm">
+    &copy; {new Date().getFullYear()} Robby Hidayat. All Rights Reserved.
+  </p>
+</footer>
     </div>
   );
 }
