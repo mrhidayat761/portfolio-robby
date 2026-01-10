@@ -215,7 +215,7 @@ export default function PortfolioFullStack() {
         <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center relative z-10">
           <div className="text-2xl font-black">
             <span className="bg-gradient-to-r from-sky-600 to-blue-600 bg-clip-text text-transparent">
-              Robby.Hidayat
+              Robby_Deve
             </span>
           </div>
           <div className="hidden md:flex gap-12">
@@ -513,10 +513,11 @@ export default function PortfolioFullStack() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="relative z-10 py-12 px-6 border-t border-sky-200/50 text-center text-slate-600 bg-white/40 backdrop-blur-sm">
-        <p className="text-sm">© 2024 Robby Hidayat. Full-Stack Developer | React • Next.js • Node.js</p>
-      </footer>
+   <footer>
+  <p>
+    &copy; {new Date().getFullYear()} Robby Hidayat. All Rights Reserved.
+  </p>
+</footer>
     </div>
   );
 }
