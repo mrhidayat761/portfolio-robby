@@ -13,7 +13,6 @@ const WhatsAppLogo = ({ size = 24, className = "" }) => (
 export default function PortfolioFullStack() {
   const [activeTab, setActiveTab] = useState('frontend');
   const [scrolled, setScrolled] = useState(false);
-  // State baru untuk Menu Mobile
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
@@ -22,141 +21,54 @@ export default function PortfolioFullStack() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const frontend = [
-    {
-      tech: "React",
-      level: 95,
-      description: "Build interactive UI dengan hooks, context API, dan state management",
-      projects: 12,
-      color: "from-sky-500 to-blue-600"
-    },
-    {
-      tech: "Next.js",
-      level: 90,
-      description: "SSR, SSG, API routes untuk aplikasi production-ready",
-      projects: 8,
-      color: "from-cyan-500 to-sky-600"
-    },
-    {
-      tech: "Vue.js",
-      level: 88,
-      description: "Composition API dan reactive data binding",
-      projects: 6,
-      color: "from-blue-500 to-indigo-600"
-    },
-    {
-      tech: "Tailwind CSS",
-      level: 96,
-      description: "Utility-first CSS untuk rapid UI development",
-      projects: 20,
-      color: "from-sky-400 to-cyan-500"
+  // --- LOGIKA SCROLL BARU ---
+  const scrollToSection = (item) => {
+    setIsMobileMenuOpen(false); // Tutup menu mobile jika sedang terbuka
+
+    let targetId = "";
+    
+    // Tentukan ID tujuan berdasarkan tombol yang diklik
+    if (item === 'About') targetId = "home";
+    else if (item === 'Projects') targetId = "projects";
+    else if (item === 'Services') targetId = "services";
+    else if (item === 'Frontend' || item === 'Backend') {
+      targetId = "tech";
+      setActiveTab(item.toLowerCase()); // Ubah tab otomatis
     }
+
+    // Cari elemen berdasarkan ID dan scroll ke sana
+    const element = document.getElementById(targetId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+  // --------------------------
+
+  const frontend = [
+    { tech: "React", level: 95, description: "Build interactive UI dengan hooks, context API, dan state management", projects: 12, color: "from-sky-500 to-blue-600" },
+    { tech: "Next.js", level: 90, description: "SSR, SSG, API routes untuk aplikasi production-ready", projects: 8, color: "from-cyan-500 to-sky-600" },
+    { tech: "Vue.js", level: 88, description: "Composition API dan reactive data binding", projects: 6, color: "from-blue-500 to-indigo-600" },
+    { tech: "Tailwind CSS", level: 96, description: "Utility-first CSS untuk rapid UI development", projects: 20, color: "from-sky-400 to-cyan-500" }
   ];
 
   const backend = [
-    {
-      tech: "Node.js",
-      level: 92,
-      description: "Server-side JavaScript dengan Express, Koa, dan Fastify",
-      projects: 15,
-      color: "from-blue-600 to-sky-500"
-    },
-    {
-      tech: "Express.js",
-      level: 94,
-      description: "REST API development, middleware, routing",
-      projects: 18,
-      color: "from-sky-600 to-blue-500"
-    },
-    {
-      tech: "Database Design",
-      level: 89,
-      description: "MongoDB, PostgreSQL, schema design, indexing optimization",
-      projects: 12,
-      color: "from-cyan-600 to-sky-500"
-    },
-    {
-      tech: "Authentication",
-      level: 91,
-      description: "JWT, OAuth2, session management, security best practices",
-      projects: 14,
-      color: "from-blue-500 to-cyan-600"
-    }
+    { tech: "Node.js", level: 92, description: "Server-side JavaScript dengan Express, Koa, dan Fastify", projects: 15, color: "from-blue-600 to-sky-500" },
+    { tech: "Express.js", level: 94, description: "REST API development, middleware, routing", projects: 18, color: "from-sky-600 to-blue-500" },
+    { tech: "Database Design", level: 89, description: "MongoDB, PostgreSQL, schema design, indexing optimization", projects: 12, color: "from-cyan-600 to-sky-500" },
+    { tech: "Authentication", level: 91, description: "JWT, OAuth2, session management, security best practices", projects: 14, color: "from-blue-500 to-cyan-600" }
   ];
 
   const projects = [
-    {
-      name: "E-Commerce Platform",
-      description: "Platform belanja online dengan payment gateway dan real-time inventory",
-      frontend: ["React", "Redux", "Tailwind CSS"],
-      backend: ["Node.js", "Express", "MongoDB"],
-      features: ["Product Catalog", "Shopping Cart", "Payment", "Dashboard"],
-      year: "2024",
-      gradient: "from-sky-500 to-blue-600"
-    },
-    {
-      name: "Real-time Chat App",
-      description: "Aplikasi chat dengan WebSocket, message history, dan user presence",
-      frontend: ["Next.js", "Socket.io", "Tailwind"],
-      backend: ["Node.js", "Express", "PostgreSQL", "Redis"],
-      features: ["WebSocket", "Message History", "User Status", "File Sharing"],
-      year: "2024",
-      gradient: "from-cyan-500 to-sky-600"
-    },
-    {
-      name: "Analytics Dashboard",
-      description: "Dashboard analytics dengan visualisasi data real-time dan export reports",
-      frontend: ["React", "Chart.js", "Tailwind"],
-      backend: ["Node.js", "Express", "MongoDB"],
-      features: ["Real-time Data", "Custom Reports", "Export Data", "Management"],
-      year: "2023",
-      gradient: "from-blue-500 to-indigo-600"
-    },
-    {
-      name: "Social Media Clone",
-      description: "Platform media sosial dengan feed, comments, likes, dan follow system",
-      frontend: ["Vue.js", "Vuex", "Tailwind"],
-      backend: ["Node.js", "Express", "PostgreSQL"],
-      features: ["User Feed", "Comments", "Likes", "Follow System"],
-      year: "2023",
-      gradient: "from-sky-400 to-cyan-500"
-    }
+    { name: "E-Commerce Platform", description: "Platform belanja online dengan payment gateway dan real-time inventory", frontend: ["React", "Redux", "Tailwind CSS"], backend: ["Node.js", "Express", "MongoDB"], features: ["Product Catalog", "Shopping Cart", "Payment", "Dashboard"], year: "2024", gradient: "from-sky-500 to-blue-600" },
+    { name: "Real-time Chat App", description: "Aplikasi chat dengan WebSocket, message history, dan user presence", frontend: ["Next.js", "Socket.io", "Tailwind"], backend: ["Node.js", "Express", "PostgreSQL", "Redis"], features: ["WebSocket", "Message History", "User Status", "File Sharing"], year: "2024", gradient: "from-cyan-500 to-sky-600" },
+    { name: "Analytics Dashboard", description: "Dashboard analytics dengan visualisasi data real-time dan export reports", frontend: ["React", "Chart.js", "Tailwind"], backend: ["Node.js", "Express", "MongoDB"], features: ["Real-time Data", "Custom Reports", "Export Data", "Management"], year: "2023", gradient: "from-blue-500 to-indigo-600" },
+    { name: "Social Media Clone", description: "Platform media sosial dengan feed, comments, likes, dan follow system", frontend: ["Vue.js", "Vuex", "Tailwind"], backend: ["Node.js", "Express", "PostgreSQL"], features: ["User Feed", "Comments", "Likes", "Follow System"], year: "2023", gradient: "from-sky-400 to-cyan-500" }
   ];
 
   const services = [
-    {
-      category: "Website Project",
-      icon: "🌐",
-      items: [
-        "Landing Page / Company Profile",
-        "Web Application (Dashboard, Manajemen Data)",
-        "Integrasi AI (Chatbot, Analisis Data)",
-        "Slicing UI Design to Code (Figma ke React/HTML)",
-        "Platform: Website Responsive"
-      ]
-    },
-    {
-      category: "AI Project",
-      icon: "🤖",
-      items: [
-        "Dataset Siap Pakai (Excel, CSV, Image, JSON)",
-        "Data Cleaning (Biaya Tambahan jika diperlukan)",
-        "Custom Model Training",
-        "Model File Deliverables (.h5, .pkl, .pt)",
-        "Jupyter Notebook / Python Script"
-      ]
-    },
-    {
-      category: "Deliverables",
-      icon: "📦",
-      items: [
-        "Model File untuk reproduksi hasil",
-        "Notebook/Script lengkap (Google Colab)",
-        "Dokumentasi API & Cara Penggunaan",
-        "Source Code yang Rapi & Documented",
-        "Technical Support"
-      ]
-    }
+    { category: "Website Project", icon: "🌐", items: ["Landing Page / Company Profile", "Web Application (Dashboard, Manajemen Data)", "Integrasi AI (Chatbot, Analisis Data)", "Slicing UI Design to Code (Figma ke React/HTML)", "Platform: Website Responsive"] },
+    { category: "AI Project", icon: "🤖", items: ["Dataset Siap Pakai (Excel, CSV, Image, JSON)", "Data Cleaning (Biaya Tambahan jika diperlukan)", "Custom Model Training", "Model File Deliverables (.h5, .pkl, .pt)", "Jupyter Notebook / Python Script"] },
+    { category: "Deliverables", icon: "📦", items: ["Model File untuk reproduksi hasil", "Notebook/Script lengkap (Google Colab)", "Dokumentasi API & Cara Penggunaan", "Source Code yang Rapi & Documented", "Technical Support"] }
   ];
 
   const skills = [
@@ -206,7 +118,7 @@ export default function PortfolioFullStack() {
         </a>
       </div>
 
-      {/* Navigation (Updated with Mobile Menu) */}
+      {/* Navigation (Updated with Functionality) */}
       <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${
         scrolled
           ? 'bg-white/70 backdrop-blur-xl shadow-sm border-b border-sky-200/50'
@@ -214,17 +126,24 @@ export default function PortfolioFullStack() {
       }`}>
         <div className="max-w-7xl mx-auto px-6 py-4">
           <div className="flex justify-between items-center relative z-10">
-            {/* Logo */}
-            <div className="text-2xl font-black">
+            {/* Logo - Klik untuk ke Home */}
+            <div 
+                className="text-2xl font-black cursor-pointer"
+                onClick={() => scrollToSection('About')} 
+            >
               <span className="bg-gradient-to-r from-sky-600 to-blue-600 bg-clip-text text-transparent">
                 RH.Dev
               </span>
             </div>
 
-            {/* Desktop Menu */}
+            {/* Desktop Menu - SEKARANG BERFUNGSI */}
             <div className="hidden md:flex gap-12">
               {['Frontend', 'Backend', 'Projects', 'Services', 'About'].map((item) => (
-                <button key={item} className="font-medium text-slate-700 hover:text-sky-900 transition relative group">
+                <button 
+                  key={item} 
+                  onClick={() => scrollToSection(item)} // Memanggil fungsi scroll
+                  className="font-medium text-slate-700 hover:text-sky-900 transition relative group"
+                >
                   {item}
                   <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-sky-600 to-blue-600 group-hover:w-full transition-all duration-300"></span>
                 </button>
@@ -242,13 +161,13 @@ export default function PortfolioFullStack() {
             </div>
           </div>
 
-          {/* Mobile Menu Dropdown */}
+          {/* Mobile Menu Dropdown - SEKARANG BERFUNGSI */}
           {isMobileMenuOpen && (
             <div className="md:hidden absolute top-full left-0 w-full bg-white/95 backdrop-blur-xl border-b border-sky-100 shadow-xl p-6 flex flex-col gap-4 animate-in slide-in-from-top-5 duration-200">
               {['Frontend', 'Backend', 'Projects', 'Services', 'About'].map((item) => (
                 <button 
                   key={item} 
-                  onClick={() => setIsMobileMenuOpen(false)}
+                  onClick={() => scrollToSection(item)} // Memanggil fungsi scroll
                   className="text-left font-medium text-lg text-slate-700 hover:text-sky-600 py-3 border-b border-slate-100 last:border-0"
                 >
                   {item}
@@ -259,8 +178,8 @@ export default function PortfolioFullStack() {
         </div>
       </nav>
 
-      {/* Hero Section */}
-      <section className="relative z-10 pt-40 pb-24 px-6 max-w-7xl mx-auto">
+      {/* Hero Section (Diberi ID="home") */}
+      <section id="home" className="relative z-10 pt-40 pb-24 px-6 max-w-7xl mx-auto">
         <div className="grid md:grid-cols-2 gap-16 items-center">
           <div>
             <div className="inline-block mb-6">
@@ -277,7 +196,10 @@ export default function PortfolioFullStack() {
               Full-stack developer yang expert dalam React, Next.js, Node.js, dan backend development. Saya membangun aplikasi web yang scalable, performant, dan user-friendly dari frontend hingga database.
             </p>
             <div className="flex gap-4">
-              <button className="px-8 py-3 bg-gradient-to-r from-sky-600 to-blue-600 text-white rounded-lg font-semibold hover:shadow-lg hover:shadow-sky-500/40 transition flex items-center gap-2 group">
+              <button 
+                onClick={() => scrollToSection('Projects')}
+                className="px-8 py-3 bg-gradient-to-r from-sky-600 to-blue-600 text-white rounded-lg font-semibold hover:shadow-lg hover:shadow-sky-500/40 transition flex items-center gap-2 group"
+              >
                 Lihat Proyek <ChevronRight size={20} className="group-hover:translate-x-1 transition" />
               </button>
               <button className="px-8 py-3 border-2 border-sky-600 text-sky-700 rounded-lg font-semibold hover:bg-sky-50 transition backdrop-blur-sm">
@@ -312,8 +234,8 @@ export default function PortfolioFullStack() {
         </div>
       </section>
 
-      {/* Tech Stack Section */}
-      <section className="relative z-10 py-24 px-6 bg-white/40 backdrop-blur-sm">
+      {/* Tech Stack Section (Diberi ID="tech") */}
+      <section id="tech" className="relative z-10 py-24 px-6 bg-white/40 backdrop-blur-sm">
         <div className="max-w-7xl mx-auto">
           <h2 className="text-5xl font-black mb-4 text-slate-900">Tech Stack</h2>
           <p className="text-lg text-slate-700 mb-16 max-w-2xl">
@@ -367,8 +289,8 @@ export default function PortfolioFullStack() {
         </div>
       </section>
 
-      {/* Projects Section */}
-      <section className="relative z-10 py-24 px-6 max-w-7xl mx-auto">
+      {/* Projects Section (Diberi ID="projects") */}
+      <section id="projects" className="relative z-10 py-24 px-6 max-w-7xl mx-auto">
         <h2 className="text-5xl font-black mb-4 text-slate-900">Proyek Full-Stack</h2>
         <p className="text-lg text-slate-700 mb-16">
           Aplikasi yang telah saya bangun dari frontend hingga backend infrastructure
@@ -434,8 +356,8 @@ export default function PortfolioFullStack() {
         </div>
       </section>
 
-      {/* Services Section */}
-      <section className="relative z-10 py-24 px-6 bg-white/40 backdrop-blur-sm">
+      {/* Services Section (Diberi ID="services") */}
+      <section id="services" className="relative z-10 py-24 px-6 bg-white/40 backdrop-blur-sm">
         <div className="max-w-7xl mx-auto">
           <h2 className="text-5xl font-black mb-4 text-slate-900">Jasa & Layanan</h2>
           <p className="text-lg text-slate-700 mb-16">
