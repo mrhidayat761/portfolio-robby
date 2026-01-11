@@ -162,7 +162,7 @@ export default function PortfolioFullStack() {
             {/* Logo */}
             <div className="text-2xl font-black cursor-pointer" onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})}>
               <span className="bg-gradient-to-r from-sky-600 to-blue-600 bg-clip-text text-transparent">
-                ROBBY.
+                RobbyDev
               </span>
             </div>
 
