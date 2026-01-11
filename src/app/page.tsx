@@ -21,29 +21,25 @@ export default function PortfolioFullStack() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // --- LOGIKA NAVIGASI BERFUNGSI ---
   const scrollToSection = (item) => {
-    setIsMobileMenuOpen(false); // Tutup menu mobile jika terbuka
+    setIsMobileMenuOpen(false);
 
     let targetId = "";
-    
-    // Tentukan target ID berdasarkan nama menu
-    if (item === 'About') targetId = "home"; // About kembali ke atas
+    if (item === 'About') targetId = "home";
     else if (item === 'Projects') targetId = "projects";
     else if (item === 'Services') targetId = "services";
     else if (item === 'Frontend' || item === 'Backend') {
-      targetId = "tech"; // Frontend/Backend lari ke Tech Stack
-      setActiveTab(item.toLowerCase()); // Otomatis ganti tab
+      targetId = "tech";
+      setActiveTab(item.toLowerCase());
     }
 
-    // Eksekusi scroll
     const element = document.getElementById(targetId);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   };
-  // ---------------------------------
 
+  // --- Data sections tetap sama ---
   const frontend = [
     { tech: "React", level: 95, description: "Build interactive UI dengan hooks, context API, dan state management", projects: 12, color: "from-sky-500 to-blue-600" },
     { tech: "Next.js", level: 90, description: "SSR, SSG, API routes untuk aplikasi production-ready", projects: 8, color: "from-cyan-500 to-sky-600" },
@@ -84,7 +80,8 @@ export default function PortfolioFullStack() {
   const email = "mrhidayat761@gmail.com";
 
   return (
-    <div className="bg-gradient-to-br from-sky-50 via-blue-50 to-cyan-50 text-slate-900 overflow-hidden">
+    // ✅ PERBAIKAN 1: Ganti overflow-hidden → overflow-x-hidden
+    <div className="bg-gradient-to-br from-sky-50 via-blue-50 to-cyan-50 text-slate-900 overflow-x-hidden">
       {/* Background Animated */}
       <div className="fixed inset-0 z-0">
         <div className="absolute top-0 left-1/4 w-96 h-96 bg-sky-300/30 rounded-full blur-3xl"></div>
@@ -118,7 +115,7 @@ export default function PortfolioFullStack() {
         </a>
       </div>
 
-      {/* Navigation (Updated with Functionality) */}
+      {/* Navigation */}
       <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${
         scrolled
           ? 'bg-white/70 backdrop-blur-xl shadow-sm border-b border-sky-200/50'
@@ -126,7 +123,6 @@ export default function PortfolioFullStack() {
       }`}>
         <div className="max-w-7xl mx-auto px-6 py-4">
           <div className="flex justify-between items-center relative z-10">
-            {/* Logo - Klik ke Home/About */}
             <div 
               className="text-2xl font-black cursor-pointer"
               onClick={() => scrollToSection('About')}
@@ -136,12 +132,11 @@ export default function PortfolioFullStack() {
               </span>
             </div>
 
-            {/* Desktop Menu - SUDAH BERFUNGSI */}
             <div className="hidden md:flex gap-12">
               {['Frontend', 'Backend', 'Projects', 'Services', 'About'].map((item) => (
                 <button 
                   key={item} 
-                  onClick={() => scrollToSection(item)} // Memanggil fungsi scroll
+                  onClick={() => scrollToSection(item)}
                   className="font-medium text-slate-700 hover:text-sky-900 transition relative group"
                 >
                   {item}
@@ -150,7 +145,6 @@ export default function PortfolioFullStack() {
               ))}
             </div>
 
-            {/* Mobile Hamburger Button */}
             <div className="md:hidden">
               <button 
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -161,13 +155,13 @@ export default function PortfolioFullStack() {
             </div>
           </div>
 
-          {/* Mobile Menu Dropdown - SUDAH BERFUNGSI */}
+          {/* ✅ PERBAIKAN 2: Gunakan fixed + z-[60] agar sidebar selalu muncul */}
           {isMobileMenuOpen && (
-            <div className="md:hidden absolute top-full left-0 w-full bg-white/95 backdrop-blur-xl border-b border-sky-100 shadow-xl p-6 flex flex-col gap-4 animate-in slide-in-from-top-5 duration-200">
+            <div className="md:hidden fixed top-16 left-0 w-full bg-white/95 backdrop-blur-xl border-b border-sky-100 shadow-xl p-6 flex flex-col gap-4 z-[60] animate-in slide-in-from-top-5 duration-200">
               {['Frontend', 'Backend', 'Projects', 'Services', 'About'].map((item) => (
                 <button 
                   key={item} 
-                  onClick={() => scrollToSection(item)} // Memanggil fungsi scroll
+                  onClick={() => scrollToSection(item)}
                   className="text-left font-medium text-lg text-slate-700 hover:text-sky-600 py-3 border-b border-slate-100 last:border-0"
                 >
                   {item}
@@ -178,7 +172,7 @@ export default function PortfolioFullStack() {
         </div>
       </nav>
 
-      {/* Hero Section (ID: home) */}
+      {/* Hero Section */}
       <section id="home" className="relative z-10 pt-40 pb-24 px-6 max-w-7xl mx-auto">
         <div className="grid md:grid-cols-2 gap-16 items-center">
           <div>
@@ -234,7 +228,7 @@ export default function PortfolioFullStack() {
         </div>
       </section>
 
-      {/* Tech Stack Section (ID: tech) */}
+      {/* Tech Stack Section */}
       <section id="tech" className="relative z-10 py-24 px-6 bg-white/40 backdrop-blur-sm">
         <div className="max-w-7xl mx-auto">
           <h2 className="text-5xl font-black mb-4 text-slate-900">Tech Stack</h2>
@@ -289,7 +283,7 @@ export default function PortfolioFullStack() {
         </div>
       </section>
 
-      {/* Projects Section (ID: projects) */}
+      {/* Projects Section */}
       <section id="projects" className="relative z-10 py-24 px-6 max-w-7xl mx-auto">
         <h2 className="text-5xl font-black mb-4 text-slate-900">Proyek Full-Stack</h2>
         <p className="text-lg text-slate-700 mb-16">
@@ -356,7 +350,7 @@ export default function PortfolioFullStack() {
         </div>
       </section>
 
-      {/* Services Section (ID: services) */}
+      {/* Services Section */}
       <section id="services" className="relative z-10 py-24 px-6 bg-white/40 backdrop-blur-sm">
         <div className="max-w-7xl mx-auto">
           <h2 className="text-5xl font-black mb-4 text-slate-900">Jasa & Layanan</h2>
@@ -444,7 +438,7 @@ export default function PortfolioFullStack() {
               <Mail size={20} /> Email
             </a>
             <a
-              href={`https://wa.me/6282223750826`}
+              href={`https://wa.me/${whatsappNumber}`}
               target="_blank"
               rel="noopener noreferrer"
               className="px-8 py-4 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-lg font-bold hover:shadow-lg hover:shadow-green-500/40 transition flex items-center justify-center gap-2"
@@ -464,7 +458,7 @@ export default function PortfolioFullStack() {
         </div>
       </section>
 
-      {/* Footer Updated */}
+      {/* Footer */}
       <footer className="py-8 text-center border-t border-sky-200/50 bg-white/40 backdrop-blur-sm relative z-10">
         <p className="text-slate-600 text-sm font-medium">
           &copy; {new Date().getFullYear()} Robby Hidayat | Full-Stack Developer
