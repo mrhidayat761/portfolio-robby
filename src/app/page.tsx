@@ -1,9 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { ChevronRight, Code2, Server, Database, Zap, Mail, MessageCircle, Menu, X } from 'lucide-react';
-
-// --- KOMPONEN TAMBAHAN ---
+import { ChevronRight, Code2, Server, Database, Zap, Mail, MessageCircle, Menu, X, BarChart3 } from 'lucide-react';
 
 // Komponen Logo WhatsApp
 const WhatsAppLogo = ({ size = 24, className = "" }) => (
@@ -12,7 +10,6 @@ const WhatsAppLogo = ({ size = 24, className = "" }) => (
   </svg>
 );
 
-// --- MAIN COMPONENT ---
 export default function PortfolioFullStack() {
   const [activeTab, setActiveTab] = useState('frontend');
   const [scrolled, setScrolled] = useState(false);
@@ -24,196 +21,106 @@ export default function PortfolioFullStack() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // --- FITUR SCROLL MENU (Navigation Logic) ---
   const scrollToSection = (item) => {
-    // 1. Tutup menu mobile jika sedang terbuka
     setIsMobileMenuOpen(false);
-
     let targetId = "";
-    
-    // 2. Tentukan target ID berdasarkan nama menu
-    if (item === 'About') {
-      targetId = "home"; // About lari ke paling atas (Hero)
-    } else if (item === 'Projects') {
-      targetId = "projects";
-    } else if (item === 'Services') {
-      targetId = "services";
-    } else if (item === 'Frontend' || item === 'Backend') {
-      targetId = "tech"; // Frontend/Backend lari ke Tech Stack
-      setActiveTab(item.toLowerCase()); // Otomatis ganti tab frontend/backend
+    if (item === 'About') targetId = "home";
+    else if (item === 'Projects') targetId = "projects";
+    else if (item === 'Services') targetId = "services";
+    else if (item === 'Frontend' || item === 'Backend') {
+      targetId = "tech";
+      setActiveTab(item.toLowerCase());
     }
-
-    // 3. Cari elemen dan scroll
     const element = document.getElementById(targetId);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   };
 
-  // --- DATA (Di-expand kembali supaya panjang) ---
+  const handleNavClick = (id) => {
+    setIsMobileMenuOpen(false);
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
 
   const frontend = [
-    {
-      tech: "React",
-      level: 95,
-      description: "Build interactive UI dengan hooks, context API, dan state management",
-      projects: 12,
-      color: "from-sky-500 to-blue-600"
-    },
-    {
-      tech: "Next.js",
-      level: 90,
-      description: "SSR, SSG, API routes untuk aplikasi production-ready",
-      projects: 8,
-      color: "from-cyan-500 to-sky-600"
-    },
-    {
-      tech: "Vue.js",
-      level: 88,
-      description: "Composition API dan reactive data binding",
-      projects: 6,
-      color: "from-blue-500 to-indigo-600"
-    },
-    {
-      tech: "Tailwind CSS",
-      level: 96,
-      description: "Utility-first CSS untuk rapid UI development",
-      projects: 20,
-      color: "from-sky-400 to-cyan-500"
-    }
+    { tech: "React", level: 95, description: "Build interactive UI dengan hooks, context API, dan state management", projects: 12, color: "from-sky-500 to-blue-600" },
+    { tech: "Next.js", level: 90, description: "SSR, SSG, API routes untuk aplikasi production-ready", projects: 8, color: "from-cyan-500 to-sky-600" },
+    { tech: "Vue.js", level: 88, description: "Composition API dan reactive data binding", projects: 6, color: "from-blue-500 to-indigo-600" },
+    { tech: "Tailwind CSS", level: 96, description: "Utility-first CSS untuk rapid UI development", projects: 20, color: "from-sky-400 to-cyan-500" }
   ];
 
   const backend = [
-    {
-      tech: "Node.js",
-      level: 92,
-      description: "Server-side JavaScript dengan Express, Koa, dan Fastify",
-      projects: 15,
-      color: "from-blue-600 to-sky-500"
-    },
-    {
-      tech: "Express.js",
-      level: 94,
-      description: "REST API development, middleware, routing",
-      projects: 18,
-      color: "from-sky-600 to-blue-500"
-    },
-    {
-      tech: "Database Design",
-      level: 89,
-      description: "MongoDB, PostgreSQL, schema design, indexing optimization",
-      projects: 12,
-      color: "from-cyan-600 to-sky-500"
-    },
-    {
-      tech: "Authentication",
-      level: 91,
-      description: "JWT, OAuth2, session management, security best practices",
-      projects: 14,
-      color: "from-blue-500 to-cyan-600"
-    }
+    { tech: "Node.js", level: 92, description: "Server-side JavaScript dengan Express, Koa, dan Fastify", projects: 15, color: "from-blue-600 to-sky-500" },
+    { tech: "Express.js", level: 94, description: "REST API development, middleware, routing", projects: 18, color: "from-sky-600 to-blue-500" },
+    { tech: "Database Design", level: 89, description: "MongoDB, PostgreSQL, schema design, indexing optimization", projects: 12, color: "from-cyan-600 to-sky-500" },
+    { tech: "Authentication", level: 91, description: "JWT, OAuth2, session management, security best practices", projects: 14, color: "from-blue-500 to-cyan-600" }
   ];
 
   const projects = [
-    {
-      name: "E-Commerce Platform",
-      description: "Platform belanja online dengan payment gateway dan real-time inventory",
-      frontend: ["React", "Redux", "Tailwind CSS"],
-      backend: ["Node.js", "Express", "MongoDB"],
-      features: ["Product Catalog", "Shopping Cart", "Payment", "Dashboard"],
-      year: "2024",
-      gradient: "from-sky-500 to-blue-600"
-    },
-    {
-      name: "Real-time Chat App",
-      description: "Aplikasi chat dengan WebSocket, message history, dan user presence",
-      frontend: ["Next.js", "Socket.io", "Tailwind"],
-      backend: ["Node.js", "Express", "PostgreSQL", "Redis"],
-      features: ["WebSocket", "Message History", "User Status", "File Sharing"],
-      year: "2024",
-      gradient: "from-cyan-500 to-sky-600"
-    },
-    {
-      name: "Analytics Dashboard",
-      description: "Dashboard analytics dengan visualisasi data real-time dan export reports",
-      frontend: ["React", "Chart.js", "Tailwind"],
-      backend: ["Node.js", "Express", "MongoDB"],
-      features: ["Real-time Data", "Custom Reports", "Export Data", "Management"],
-      year: "2023",
-      gradient: "from-blue-500 to-indigo-600"
-    },
-    {
-      name: "Social Media Clone",
-      description: "Platform media sosial dengan feed, comments, likes, dan follow system",
-      frontend: ["Vue.js", "Vuex", "Tailwind"],
-      backend: ["Node.js", "Express", "PostgreSQL"],
-      features: ["User Feed", "Comments", "Likes", "Follow System"],
-      year: "2023",
-      gradient: "from-sky-400 to-cyan-500"
-    }
+    { name: "E-Commerce Platform", description: "Platform belanja online dengan payment gateway dan real-time inventory", frontend: ["React", "Redux", "Tailwind CSS"], backend: ["Node.js", "Express", "MongoDB"], features: ["Product Catalog", "Shopping Cart", "Payment", "Dashboard"], year: "2024", gradient: "from-sky-500 to-blue-600" },
+    { name: "Real-time Chat App", description: "Aplikasi chat dengan WebSocket, message history, dan user presence", frontend: ["Next.js", "Socket.io", "Tailwind"], backend: ["Node.js", "Express", "PostgreSQL", "Redis"], features: ["WebSocket", "Message History", "User Status", "File Sharing"], year: "2024", gradient: "from-cyan-500 to-sky-600" },
+    { name: "Analytics Dashboard", description: "Dashboard analytics dengan visualisasi data real-time dan export reports", frontend: ["React", "Chart.js", "Tailwind"], backend: ["Node.js", "Express", "MongoDB"], features: ["Real-time Data", "Custom Reports", "Export Data", "Management"], year: "2023", gradient: "from-blue-500 to-indigo-600" },
+    { name: "Social Media Clone", description: "Platform media sosial dengan feed, comments, likes, dan follow system", frontend: ["Vue.js", "Vuex", "Tailwind"], backend: ["Node.js", "Express", "PostgreSQL"], features: ["User Feed", "Comments", "Likes", "Follow System"], year: "2023", gradient: "from-sky-400 to-cyan-500" }
   ];
 
+  // --- UPDATED SERVICES DATA ---
   const services = [
     {
-      category: "Website Project",
-      icon: "🌐",
+      category: "Business Systems", // KATEGORI BARU UNTUK KASIR & KEUANGAN
+      icon: "📊", 
       items: [
-        "Landing Page / Company Profile",
-        "Web Application (Dashboard, Manajemen Data)",
-        "Integrasi AI (Chatbot, Analisis Data)",
-        "Slicing UI Design to Code (Figma ke React/HTML)",
-        "Platform: Website Responsive"
+        "Aplikasi POS (Kasir) Web-Based",
+        "Sistem Informasi Keuangan/Accounting",
+        "Manajemen Stok (Inventory System)",
+        "Laporan Penjualan Real-time & Grafik",
+        "Multi-User Role (Admin, Kasir, Owner)"
       ]
     },
     {
-      category: "AI Project",
+      category: "Web Development",
+      icon: "🌐",
+      items: [
+        "Landing Page / Company Profile",
+        "Web Application Custom (Sesuai Request)",
+        "Dashboard Admin Panel",
+        "Slicing UI Design to Code (Figma ke React)",
+        "Website Responsive & SEO Friendly"
+      ]
+    },
+    {
+      category: "AI Integration",
       icon: "🤖",
       items: [
-        "Dataset Siap Pakai (Excel, CSV, Image, JSON)",
-        "Data Cleaning (Biaya Tambahan jika diperlukan)",
-        "Custom Model Training",
-        "Model File Deliverables (.h5, .pkl, .pt)",
-        "Jupyter Notebook / Python Script"
+        "Integrasi Chatbot Cerdas",
+        "Analisis Data Otomatis",
+        "Custom Model Training (Python)",
+        "Data Cleaning & Processing",
+        "Implementasi OpenAI/LLM API"
       ]
     },
     {
       category: "Deliverables",
       icon: "📦",
       items: [
-        "Model File untuk reproduksi hasil",
-        "Notebook/Script lengkap (Google Colab)",
-        "Dokumentasi API & Cara Penggunaan",
-        "Source Code yang Rapi & Documented",
-        "Technical Support"
+        "Source Code Lengkap & Bersih",
+        "Dokumentasi Penggunaan & API",
+        "Deploy ke Server/Hosting",
+        "Maintenance & Bug Fixing",
+        "Konsultasi Teknis Gratis"
       ]
     }
   ];
 
   const skills = [
-    { 
-      category: "Frontend Framework", 
-      items: ["React", "Next.js", "Vue.js", "TypeScript"] 
-    },
-    { 
-      category: "Styling & UI", 
-      items: ["Tailwind CSS", "CSS3", "Responsive Design", "Components"] 
-    },
-    { 
-      category: "Backend Runtime", 
-      items: ["Node.js", "Express.js", "REST API", "WebSocket"] 
-    },
-    { 
-      category: "Database", 
-      items: ["MongoDB", "PostgreSQL", "Redis", "Optimization"] 
-    },
-    { 
-      category: "DevOps & Tools", 
-      items: ["Git", "Docker", "AWS", "CI/CD Pipelines"] 
-    },
-    { 
-      category: "Best Practices", 
-      items: ["Clean Code", "Testing", "Security", "Performance"] 
-    }
+    { category: "Frontend Framework", items: ["React", "Next.js", "Vue.js", "TypeScript"] },
+    { category: "Styling & UI", items: ["Tailwind CSS", "CSS3", "Responsive Design", "Components"] },
+    { category: "Backend Runtime", items: ["Node.js", "Express.js", "REST API", "WebSocket"] },
+    { category: "Database", items: ["MongoDB", "PostgreSQL", "Redis", "Optimization"] },
+    { category: "DevOps & Tools", items: ["Git", "Docker", "AWS", "CI/CD Pipelines"] },
+    { category: "Best Practices", items: ["Clean Code", "Testing", "Security", "Performance"] }
   ];
 
   const whatsappNumber = "6282223750826"; 
@@ -229,59 +136,45 @@ export default function PortfolioFullStack() {
         <div className="absolute top-1/2 left-1/2 w-80 h-80 bg-cyan-200/20 rounded-full blur-3xl"></div>
       </div>
 
-      {/* Floating Contact Button */}
+      {/* Floating Contact Buttons */}
       <div className="fixed bottom-8 right-8 z-40 flex flex-col gap-3">
-        <a
-          href={`https://wa.me/${whatsappNumber}`}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="w-16 h-16 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-full flex items-center justify-center shadow-lg hover:shadow-xl hover:scale-110 transition transform group"
-          title="Hubungi via WhatsApp"
-        >
+        <a href={`https://wa.me/${whatsappNumber}`} target="_blank" rel="noopener noreferrer" className="w-16 h-16 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-full flex items-center justify-center shadow-lg hover:shadow-xl hover:scale-110 transition transform group" title="Hubungi via WhatsApp">
           <WhatsAppLogo size={28} />
-          <span className="absolute right-20 bg-green-600 text-white px-3 py-1 rounded-lg text-sm opacity-0 group-hover:opacity-100 transition whitespace-nowrap">
-            Chat di WhatsApp
-          </span>
+          <span className="absolute right-20 bg-green-600 text-white px-3 py-1 rounded-lg text-sm opacity-0 group-hover:opacity-100 transition whitespace-nowrap">Chat di WhatsApp</span>
         </a>
-        <a
-          href={`mailto:${email}`}
-          className="w-16 h-16 bg-gradient-to-r from-sky-600 to-blue-600 text-white rounded-full flex items-center justify-center shadow-lg hover:shadow-xl hover:scale-110 transition transform group"
-          title="Kirim Email"
-        >
+        <a href={`mailto:${email}`} className="w-16 h-16 bg-gradient-to-r from-sky-600 to-blue-600 text-white rounded-full flex items-center justify-center shadow-lg hover:shadow-xl hover:scale-110 transition transform group" title="Kirim Email">
           <Mail size={28} />
-          <span className="absolute right-20 bg-blue-600 text-white px-3 py-1 rounded-lg text-sm opacity-0 group-hover:opacity-100 transition whitespace-nowrap">
-            Email
-          </span>
+          <span className="absolute right-20 bg-blue-600 text-white px-3 py-1 rounded-lg text-sm opacity-0 group-hover:opacity-100 transition whitespace-nowrap">Email</span>
         </a>
       </div>
 
-      {/* Navigation (Updated with Functionality) */}
+      {/* Navigation */}
       <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-        scrolled
-          ? 'bg-white/70 backdrop-blur-xl shadow-sm border-b border-sky-200/50'
-          : 'bg-white/40 backdrop-blur-md'
+        scrolled ? 'bg-white/70 backdrop-blur-xl shadow-sm border-b border-sky-200/50' : 'bg-white/40 backdrop-blur-md'
       }`}>
         <div className="max-w-7xl mx-auto px-6 py-4">
           <div className="flex justify-between items-center relative z-10">
             {/* Logo */}
-            <div 
-              className="text-2xl font-black cursor-pointer"
-              onClick={() => scrollToSection('About')}
-            >
+            <div className="text-2xl font-black cursor-pointer" onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})}>
               <span className="bg-gradient-to-r from-sky-600 to-blue-600 bg-clip-text text-transparent">
-                RH.Dev
+                RobbyDev
               </span>
             </div>
 
             {/* Desktop Menu */}
             <div className="hidden md:flex gap-12">
-              {['Frontend', 'Backend', 'Projects', 'Services', 'About'].map((item) => (
+              {[
+                { name: 'Tech Stack', id: 'tech' },
+                { name: 'Projects', id: 'projects' },
+                { name: 'Services', id: 'services' },
+                { name: 'About', id: 'about' }
+              ].map((item) => (
                 <button 
-                  key={item} 
-                  onClick={() => scrollToSection(item)} 
+                  key={item.name} 
+                  onClick={() => handleNavClick(item.id)}
                   className="font-medium text-slate-700 hover:text-sky-900 transition relative group"
                 >
-                  {item}
+                  {item.name}
                   <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-sky-600 to-blue-600 group-hover:w-full transition-all duration-300"></span>
                 </button>
               ))}
@@ -291,7 +184,7 @@ export default function PortfolioFullStack() {
             <div className="md:hidden">
               <button 
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="text-slate-700 hover:text-sky-600 transition p-2"
+                className="text-slate-700 hover:text-sky-600 transition"
               >
                 {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
               </button>
@@ -301,13 +194,18 @@ export default function PortfolioFullStack() {
           {/* Mobile Menu Dropdown */}
           {isMobileMenuOpen && (
             <div className="md:hidden absolute top-full left-0 w-full bg-white/95 backdrop-blur-xl border-b border-sky-100 shadow-xl p-6 flex flex-col gap-4 animate-in slide-in-from-top-5 duration-200">
-              {['Frontend', 'Backend', 'Projects', 'Services', 'About'].map((item) => (
+              {[
+                { name: 'Tech Stack', id: 'tech' },
+                { name: 'Projects', id: 'projects' },
+                { name: 'Services', id: 'services' },
+                { name: 'About', id: 'about' }
+              ].map((item) => (
                 <button 
-                  key={item} 
-                  onClick={() => scrollToSection(item)}
-                  className="text-left font-medium text-lg text-slate-700 hover:text-sky-600 py-3 border-b border-slate-100 last:border-0"
+                  key={item.name} 
+                  onClick={() => handleNavClick(item.id)}
+                  className="text-left font-medium text-lg text-slate-700 hover:text-sky-600 py-2 border-b border-slate-100 last:border-0"
                 >
-                  {item}
+                  {item.name}
                 </button>
               ))}
             </div>
@@ -315,8 +213,8 @@ export default function PortfolioFullStack() {
         </div>
       </nav>
 
-      {/* Hero Section (ID: home) */}
-      <section id="home" className="relative z-10 pt-40 pb-24 px-6 max-w-7xl mx-auto">
+      {/* Hero Section */}
+      <section id="about" className="relative z-10 pt-40 pb-24 px-6 max-w-7xl mx-auto">
         <div className="grid md:grid-cols-2 gap-16 items-center">
           <div>
             <div className="inline-block mb-6">
@@ -330,18 +228,18 @@ export default function PortfolioFullStack() {
               </span>
             </h1>
             <p className="text-lg text-slate-700 mb-10 leading-relaxed max-w-lg font-light">
-              Full-stack developer yang expert dalam React, Next.js, Node.js, dan backend development. Saya membangun aplikasi web yang scalable, performant, dan user-friendly dari frontend hingga database.
+              Expert dalam pengembangan <b>Website Keuangan</b>, <b>Sistem POS/Kasir</b>, dan Aplikasi Full-Stack. Saya membangun solusi digital yang aman, cepat, dan scalable.
             </p>
             <div className="flex gap-4">
-              <button 
-                onClick={() => scrollToSection('Projects')}
-                className="px-8 py-3 bg-gradient-to-r from-sky-600 to-blue-600 text-white rounded-lg font-semibold hover:shadow-lg hover:shadow-sky-500/40 transition flex items-center gap-2 group"
-              >
+              <button onClick={() => handleNavClick('projects')} className="px-8 py-3 bg-gradient-to-r from-sky-600 to-blue-600 text-white rounded-lg font-semibold hover:shadow-lg hover:shadow-sky-500/40 transition flex items-center gap-2 group">
                 Lihat Proyek <ChevronRight size={20} className="group-hover:translate-x-1 transition" />
               </button>
-              <button className="px-8 py-3 border-2 border-sky-600 text-sky-700 rounded-lg font-semibold hover:bg-sky-50 transition backdrop-blur-sm">
-                Download CV
-              </button>
+             <button 
+  onClick={() => handleNavClick('services')} // Ganti jadi 'services'
+  className="px-8 py-3 border-2 border-sky-600 text-sky-700 rounded-lg font-semibold hover:bg-sky-50 transition backdrop-blur-sm"
+>
+  Lihat Layanan
+</button>
             </div>
           </div>
           <div className="relative">
@@ -371,7 +269,7 @@ export default function PortfolioFullStack() {
         </div>
       </section>
 
-      {/* Tech Stack Section (ID: tech) */}
+      {/* Tech Stack Section */}
       <section id="tech" className="relative z-10 py-24 px-6 bg-white/40 backdrop-blur-sm">
         <div className="max-w-7xl mx-auto">
           <h2 className="text-5xl font-black mb-4 text-slate-900">Tech Stack</h2>
@@ -406,17 +304,13 @@ export default function PortfolioFullStack() {
                     </span>
                   </div>
                   <p className="text-slate-700 mb-6 text-sm">{tech.description}</p>
-
                   <div className="mb-2">
                     <div className="flex justify-between items-center mb-2">
                       <span className="text-xs font-semibold text-slate-600">Proficiency</span>
                       <span className="text-sm font-bold text-slate-900">{tech.level}%</span>
                     </div>
                     <div className="w-full bg-sky-100 rounded-full h-2.5">
-                      <div
-                        className={`h-2.5 rounded-full bg-gradient-to-r ${tech.color} transition-all`}
-                        style={{ width: `${tech.level}%` }}
-                      ></div>
+                      <div className={`h-2.5 rounded-full bg-gradient-to-r ${tech.color} transition-all`} style={{ width: `${tech.level}%` }}></div>
                     </div>
                   </div>
                 </div>
@@ -426,7 +320,7 @@ export default function PortfolioFullStack() {
         </div>
       </section>
 
-      {/* Projects Section (ID: projects) */}
+      {/* Projects Section */}
       <section id="projects" className="relative z-10 py-24 px-6 max-w-7xl mx-auto">
         <h2 className="text-5xl font-black mb-4 text-slate-900">Proyek Full-Stack</h2>
         <p className="text-lg text-slate-700 mb-16">
@@ -448,7 +342,6 @@ export default function PortfolioFullStack() {
                         {project.year}
                       </span>
                     </div>
-
                     <h4 className="font-semibold text-xs uppercase tracking-wide text-slate-600 mb-3 mt-6">Fitur Utama</h4>
                     <div className="flex flex-wrap gap-2">
                       {project.features.map((feature, i) => (
@@ -458,7 +351,6 @@ export default function PortfolioFullStack() {
                       ))}
                     </div>
                   </div>
-
                   <div className="space-y-6">
                     <div>
                       <h4 className="font-semibold text-xs uppercase tracking-wide text-slate-600 mb-3 flex items-center gap-2">
@@ -466,22 +358,17 @@ export default function PortfolioFullStack() {
                       </h4>
                       <div className="flex flex-wrap gap-2">
                         {project.frontend.map((tech, i) => (
-                          <span key={i} className="bg-sky-100 text-sky-900 text-xs font-semibold px-3 py-1.5 rounded-lg border border-sky-200">
-                            {tech}
-                          </span>
+                          <span key={i} className="bg-sky-100 text-sky-900 text-xs font-semibold px-3 py-1.5 rounded-lg border border-sky-200">{tech}</span>
                         ))}
                       </div>
                     </div>
-
                     <div>
                       <h4 className="font-semibold text-xs uppercase tracking-wide text-slate-600 mb-3 flex items-center gap-2">
                         <Server size={14} /> Backend Stack
                       </h4>
                       <div className="flex flex-wrap gap-2">
                         {project.backend.map((tech, i) => (
-                          <span key={i} className="bg-blue-100 text-blue-900 text-xs font-semibold px-3 py-1.5 rounded-lg border border-blue-200">
-                            {tech}
-                          </span>
+                          <span key={i} className="bg-blue-100 text-blue-900 text-xs font-semibold px-3 py-1.5 rounded-lg border border-blue-200">{tech}</span>
                         ))}
                       </div>
                     </div>
@@ -493,15 +380,15 @@ export default function PortfolioFullStack() {
         </div>
       </section>
 
-      {/* Services Section (ID: services) */}
+      {/* Services Section (UPDATED LAYOUT) */}
       <section id="services" className="relative z-10 py-24 px-6 bg-white/40 backdrop-blur-sm">
         <div className="max-w-7xl mx-auto">
           <h2 className="text-5xl font-black mb-4 text-slate-900">Jasa & Layanan</h2>
           <p className="text-lg text-slate-700 mb-16">
-            Solusi lengkap untuk kebutuhan digital dan AI Anda
+            Solusi lengkap mulai dari Web Profile hingga Sistem Keuangan Kompleks
           </p>
 
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-6">
             {services.map((service, idx) => (
               <div key={idx} className="bg-white/70 backdrop-blur-sm p-8 rounded-xl border border-sky-200/50 shadow-sm hover:shadow-md transition">
                 <div className="text-4xl mb-4">{service.icon}</div>
@@ -523,10 +410,6 @@ export default function PortfolioFullStack() {
       {/* Skills Section */}
       <section className="relative z-10 py-24 px-6 max-w-7xl mx-auto">
         <h2 className="text-5xl font-black mb-4 text-slate-900">Keahlian Lengkap</h2>
-        <p className="text-lg text-slate-700 mb-16">
-          Stack lengkap dari design thinking hingga infrastructure deployment
-        </p>
-
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {skills.map((skill, idx) => (
             <div key={idx} className="bg-white/70 backdrop-blur-sm p-6 rounded-xl border border-sky-200/50 shadow-sm hover:shadow-md transition">
@@ -549,16 +432,9 @@ export default function PortfolioFullStack() {
         <div className="max-w-7xl mx-auto">
           <h2 className="text-5xl font-black mb-16 text-center text-slate-900">Pencapaian</h2>
           <div className="grid md:grid-cols-4 gap-6">
-            {[
-              { number: "40+", label: "Full-Stack Projects" },
-              { number: "8+", label: "Years Experience" },
-              { number: "50+", label: "Happy Clients" },
-              { number: "100+", label: "Apps Deployed" }
-            ].map((stat, idx) => (
+            {[{ number: "40+", label: "Full-Stack Projects" }, { number: "8+", label: "Years Experience" }, { number: "50+", label: "Happy Clients" }, { number: "100+", label: "Apps Deployed" }].map((stat, idx) => (
               <div key={idx} className="text-center bg-white/70 backdrop-blur-sm p-6 rounded-xl border border-sky-200/50 shadow-sm hover:shadow-md transition">
-                <div className="text-4xl font-black bg-gradient-to-r from-sky-600 to-blue-600 bg-clip-text text-transparent mb-2">
-                  {stat.number}
-                </div>
+                <div className="text-4xl font-black bg-gradient-to-r from-sky-600 to-blue-600 bg-clip-text text-transparent mb-2">{stat.number}</div>
                 <p className="text-slate-700 font-medium text-sm">{stat.label}</p>
               </div>
             ))}
@@ -573,38 +449,20 @@ export default function PortfolioFullStack() {
           <p className="text-lg text-slate-700 mb-10">
             Saya terbuka untuk full-time, freelance, atau partnership. Mari diskusikan ide Anda!
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a
-              href={`mailto:${email}`}
-              className="px-8 py-4 bg-gradient-to-r from-sky-600 to-blue-600 text-white rounded-lg font-bold hover:shadow-lg hover:shadow-sky-500/40 transition flex items-center justify-center gap-2"
-            >
+          <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
+            <a href={`mailto:${email}`} className="px-8 py-4 bg-gradient-to-r from-sky-600 to-blue-600 text-white rounded-lg font-bold hover:shadow-lg hover:shadow-sky-500/40 transition flex items-center justify-center gap-2">
               <Mail size={20} /> Email
             </a>
-            <a
-              href={`https://wa.me/6282223750826`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-8 py-4 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-lg font-bold hover:shadow-lg hover:shadow-green-500/40 transition flex items-center justify-center gap-2"
-            >
-              <WhatsAppLogo size={20} />
-              WhatsApp
-            </a>
-            <a
-              href="https://github.com/mrhidayat761"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-8 py-4 border-2 border-sky-600 text-sky-700 rounded-lg font-bold hover:bg-sky-50 transition"
-            >
-              🔗 GitHub
+            <a href={`https://wa.me/6282223750826`} target="_blank" rel="noopener noreferrer" className="px-8 py-4 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-lg font-bold hover:shadow-lg hover:shadow-green-500/40 transition flex items-center justify-center gap-2">
+              <WhatsAppLogo size={20} /> WhatsApp
             </a>
           </div>
         </div>
       </section>
 
-      {/* Footer Updated */}
-      <footer className="py-8 text-center border-t border-sky-200/50 bg-white/40 backdrop-blur-sm relative z-10">
-        <p className="text-slate-600 text-sm font-medium">
-          &copy; {new Date().getFullYear()} Robby Hidayat | Full-Stack Developer
+      <footer>
+        <p className="text-center py-8 text-slate-600 text-sm bg-white/40 backdrop-blur-sm">
+          &copy; {new Date().getFullYear()} Robby Hidayat. All Rights Reserved.
         </p>
       </footer>
     </div>
