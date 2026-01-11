@@ -1,24 +1,56 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { ChevronRight, Code2, Server, Database, Zap, Mail, MessageCircle } from 'lucide-react';
+import { ChevronRight, Code2, Server, Database, Zap, Mail, MessageCircle, Menu, X } from 'lucide-react';
 
-// Tambahkan komponen ini di atas 'export default function PortfolioFullStack'
+// --- KOMPONEN TAMBAHAN ---
+
+// Komponen Logo WhatsApp
 const WhatsAppLogo = ({ size = 24, className = "" }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" className={className} xmlns="http://www.w3.org/2000/svg">
     <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
   </svg>
 );
+
+// --- MAIN COMPONENT ---
 export default function PortfolioFullStack() {
   const [activeTab, setActiveTab] = useState('frontend');
   const [scrolled, setScrolled] = useState(false);
-
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  // --- FITUR SCROLL MENU (Navigation Logic) ---
+  const scrollToSection = (item) => {
+    // 1. Tutup menu mobile jika sedang terbuka
+    setIsMobileMenuOpen(false);
+
+    let targetId = "";
+    
+    // 2. Tentukan target ID berdasarkan nama menu
+    if (item === 'About') {
+      targetId = "home"; // About lari ke paling atas (Hero)
+    } else if (item === 'Projects') {
+      targetId = "projects";
+    } else if (item === 'Services') {
+      targetId = "services";
+    } else if (item === 'Frontend' || item === 'Backend') {
+      targetId = "tech"; // Frontend/Backend lari ke Tech Stack
+      setActiveTab(item.toLowerCase()); // Otomatis ganti tab frontend/backend
+    }
+
+    // 3. Cari elemen dan scroll
+    const element = document.getElementById(targetId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
+  // --- DATA (Di-expand kembali supaya panjang) ---
 
   const frontend = [
     {
@@ -158,79 +190,133 @@ export default function PortfolioFullStack() {
   ];
 
   const skills = [
-    { category: "Frontend Framework", items: ["React", "Next.js", "Vue.js", "TypeScript"] },
-    { category: "Styling & UI", items: ["Tailwind CSS", "CSS3", "Responsive Design", "Components"] },
-    { category: "Backend Runtime", items: ["Node.js", "Express.js", "REST API", "WebSocket"] },
-    { category: "Database", items: ["MongoDB", "PostgreSQL", "Redis", "Optimization"] },
-    { category: "DevOps & Tools", items: ["Git", "Docker", "AWS", "CI/CD Pipelines"] },
-    { category: "Best Practices", items: ["Clean Code", "Testing", "Security", "Performance"] }
+    { 
+      category: "Frontend Framework", 
+      items: ["React", "Next.js", "Vue.js", "TypeScript"] 
+    },
+    { 
+      category: "Styling & UI", 
+      items: ["Tailwind CSS", "CSS3", "Responsive Design", "Components"] 
+    },
+    { 
+      category: "Backend Runtime", 
+      items: ["Node.js", "Express.js", "REST API", "WebSocket"] 
+    },
+    { 
+      category: "Database", 
+      items: ["MongoDB", "PostgreSQL", "Redis", "Optimization"] 
+    },
+    { 
+      category: "DevOps & Tools", 
+      items: ["Git", "Docker", "AWS", "CI/CD Pipelines"] 
+    },
+    { 
+      category: "Best Practices", 
+      items: ["Clean Code", "Testing", "Security", "Performance"] 
+    }
   ];
 
-  const whatsappNumber = "6282223750826"; // GANTI DENGAN NOMOR ASLI
+  const whatsappNumber = "6282223750826"; 
   const email = "mrhidayat761@gmail.com";
 
   return (
     <div className="bg-gradient-to-br from-sky-50 via-blue-50 to-cyan-50 text-slate-900 overflow-hidden">
-      {/* Animated background elements */}
+      
+      {/* Background Animated */}
       <div className="fixed inset-0 z-0">
         <div className="absolute top-0 left-1/4 w-96 h-96 bg-sky-300/30 rounded-full blur-3xl"></div>
         <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-blue-300/20 rounded-full blur-3xl"></div>
         <div className="absolute top-1/2 left-1/2 w-80 h-80 bg-cyan-200/20 rounded-full blur-3xl"></div>
       </div>
 
-     {/* Floating Contact Button */}
-           <div className="fixed bottom-8 right-8 z-40 flex flex-col gap-3">
-             <a
-               href={`https://wa.me/${whatsappNumber}`}
-               target="_blank"
-               rel="noopener noreferrer"
-               className="w-16 h-16 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-full flex items-center justify-center shadow-lg hover:shadow-xl hover:scale-110 transition transform group"
-               title="Hubungi via WhatsApp"
-             >
-               {/* INI YANG DITAMBAHKAN: Ikon WhatsApp Custom */}
-               <WhatsAppLogo size={28} />
+      {/* Floating Contact Button */}
+      <div className="fixed bottom-8 right-8 z-40 flex flex-col gap-3">
+        <a
+          href={`https://wa.me/${whatsappNumber}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="w-16 h-16 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-full flex items-center justify-center shadow-lg hover:shadow-xl hover:scale-110 transition transform group"
+          title="Hubungi via WhatsApp"
+        >
+          <WhatsAppLogo size={28} />
+          <span className="absolute right-20 bg-green-600 text-white px-3 py-1 rounded-lg text-sm opacity-0 group-hover:opacity-100 transition whitespace-nowrap">
+            Chat di WhatsApp
+          </span>
+        </a>
+        <a
+          href={`mailto:${email}`}
+          className="w-16 h-16 bg-gradient-to-r from-sky-600 to-blue-600 text-white rounded-full flex items-center justify-center shadow-lg hover:shadow-xl hover:scale-110 transition transform group"
+          title="Kirim Email"
+        >
+          <Mail size={28} />
+          <span className="absolute right-20 bg-blue-600 text-white px-3 py-1 rounded-lg text-sm opacity-0 group-hover:opacity-100 transition whitespace-nowrap">
+            Email
+          </span>
+        </a>
+      </div>
 
-               <span className="absolute right-20 bg-green-600 text-white px-3 py-1 rounded-lg text-sm opacity-0 group-hover:opacity-100 transition whitespace-nowrap">
-                 Chat di WhatsApp
-               </span>
-             </a>
-             <a
-               href={`mailto:${email}`}
-               className="w-16 h-16 bg-gradient-to-r from-sky-600 to-blue-600 text-white rounded-full flex items-center justify-center shadow-lg hover:shadow-xl hover:scale-110 transition transform group"
-               title="Kirim Email"
-             >
-               <Mail size={28} />
-               <span className="absolute right-20 bg-blue-600 text-white px-3 py-1 rounded-lg text-sm opacity-0 group-hover:opacity-100 transition whitespace-nowrap">
-                 Email
-               </span>
-             </a>
-           </div>
-
-      {/* Navigation */}
+      {/* Navigation (Updated with Functionality) */}
       <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${
         scrolled
           ? 'bg-white/70 backdrop-blur-xl shadow-sm border-b border-sky-200/50'
           : 'bg-white/40 backdrop-blur-md'
       }`}>
-        <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center relative z-10">
-          <div className="text-2xl font-black">
-            <span className="bg-gradient-to-r from-sky-600 to-blue-600 bg-clip-text text-transparent">
-              ROBBY.
-            </span>
-          </div>
-          <div className="hidden md:flex gap-12">
-            {['Frontend', 'Backend', 'Projects', 'Services', 'About'].map((item) => (
-              <button key={item} className="font-medium text-slate-700 hover:text-sky-900 transition relative group">
-                {item}
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-sky-600 to-blue-600 group-hover:w-full transition-all duration-300"></span>
+        <div className="max-w-7xl mx-auto px-6 py-4">
+          <div className="flex justify-between items-center relative z-10">
+            {/* Logo */}
+            <div 
+              className="text-2xl font-black cursor-pointer"
+              onClick={() => scrollToSection('About')}
+            >
+              <span className="bg-gradient-to-r from-sky-600 to-blue-600 bg-clip-text text-transparent">
+                RH.Dev
+              </span>
+            </div>
+
+            {/* Desktop Menu */}
+            <div className="hidden md:flex gap-12">
+              {['Frontend', 'Backend', 'Projects', 'Services', 'About'].map((item) => (
+                <button 
+                  key={item} 
+                  onClick={() => scrollToSection(item)} 
+                  className="font-medium text-slate-700 hover:text-sky-900 transition relative group"
+                >
+                  {item}
+                  <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-sky-600 to-blue-600 group-hover:w-full transition-all duration-300"></span>
+                </button>
+              ))}
+            </div>
+
+            {/* Mobile Hamburger Button */}
+            <div className="md:hidden">
+              <button 
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                className="text-slate-700 hover:text-sky-600 transition p-2"
+              >
+                {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
               </button>
-            ))}
+            </div>
           </div>
+
+          {/* Mobile Menu Dropdown */}
+          {isMobileMenuOpen && (
+            <div className="md:hidden absolute top-full left-0 w-full bg-white/95 backdrop-blur-xl border-b border-sky-100 shadow-xl p-6 flex flex-col gap-4 animate-in slide-in-from-top-5 duration-200">
+              {['Frontend', 'Backend', 'Projects', 'Services', 'About'].map((item) => (
+                <button 
+                  key={item} 
+                  onClick={() => scrollToSection(item)}
+                  className="text-left font-medium text-lg text-slate-700 hover:text-sky-600 py-3 border-b border-slate-100 last:border-0"
+                >
+                  {item}
+                </button>
+              ))}
+            </div>
+          )}
         </div>
       </nav>
 
-      {/* Hero Section */}
-      <section className="relative z-10 pt-40 pb-24 px-6 max-w-7xl mx-auto">
+      {/* Hero Section (ID: home) */}
+      <section id="home" className="relative z-10 pt-40 pb-24 px-6 max-w-7xl mx-auto">
         <div className="grid md:grid-cols-2 gap-16 items-center">
           <div>
             <div className="inline-block mb-6">
@@ -247,7 +333,10 @@ export default function PortfolioFullStack() {
               Full-stack developer yang expert dalam React, Next.js, Node.js, dan backend development. Saya membangun aplikasi web yang scalable, performant, dan user-friendly dari frontend hingga database.
             </p>
             <div className="flex gap-4">
-              <button className="px-8 py-3 bg-gradient-to-r from-sky-600 to-blue-600 text-white rounded-lg font-semibold hover:shadow-lg hover:shadow-sky-500/40 transition flex items-center gap-2 group">
+              <button 
+                onClick={() => scrollToSection('Projects')}
+                className="px-8 py-3 bg-gradient-to-r from-sky-600 to-blue-600 text-white rounded-lg font-semibold hover:shadow-lg hover:shadow-sky-500/40 transition flex items-center gap-2 group"
+              >
                 Lihat Proyek <ChevronRight size={20} className="group-hover:translate-x-1 transition" />
               </button>
               <button className="px-8 py-3 border-2 border-sky-600 text-sky-700 rounded-lg font-semibold hover:bg-sky-50 transition backdrop-blur-sm">
@@ -282,8 +371,8 @@ export default function PortfolioFullStack() {
         </div>
       </section>
 
-      {/* Tech Stack Section */}
-      <section className="relative z-10 py-24 px-6 bg-white/40 backdrop-blur-sm">
+      {/* Tech Stack Section (ID: tech) */}
+      <section id="tech" className="relative z-10 py-24 px-6 bg-white/40 backdrop-blur-sm">
         <div className="max-w-7xl mx-auto">
           <h2 className="text-5xl font-black mb-4 text-slate-900">Tech Stack</h2>
           <p className="text-lg text-slate-700 mb-16 max-w-2xl">
@@ -337,8 +426,8 @@ export default function PortfolioFullStack() {
         </div>
       </section>
 
-      {/* Projects Section */}
-      <section className="relative z-10 py-24 px-6 max-w-7xl mx-auto">
+      {/* Projects Section (ID: projects) */}
+      <section id="projects" className="relative z-10 py-24 px-6 max-w-7xl mx-auto">
         <h2 className="text-5xl font-black mb-4 text-slate-900">Proyek Full-Stack</h2>
         <p className="text-lg text-slate-700 mb-16">
           Aplikasi yang telah saya bangun dari frontend hingga backend infrastructure
@@ -404,8 +493,8 @@ export default function PortfolioFullStack() {
         </div>
       </section>
 
-      {/* Services Section */}
-      <section className="relative z-10 py-24 px-6 bg-white/40 backdrop-blur-sm">
+      {/* Services Section (ID: services) */}
+      <section id="services" className="relative z-10 py-24 px-6 bg-white/40 backdrop-blur-sm">
         <div className="max-w-7xl mx-auto">
           <h2 className="text-5xl font-black mb-4 text-slate-900">Jasa & Layanan</h2>
           <p className="text-lg text-slate-700 mb-16">
@@ -491,16 +580,15 @@ export default function PortfolioFullStack() {
             >
               <Mail size={20} /> Email
             </a>
-       <a
-         href={`https://wa.me/6282223750826`}
-         target="_blank"
-         rel="noopener noreferrer"
-         className="px-8 py-4 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-lg font-bold hover:shadow-lg hover:shadow-green-500/40 transition flex items-center justify-center gap-2"
-       >
-         {/* Ikon diganti jadi Logo WhatsApp Asli */}
-         <WhatsAppLogo size={20} />
-         WhatsApp
-       </a>
+            <a
+              href={`https://wa.me/6282223750826`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-8 py-4 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-lg font-bold hover:shadow-lg hover:shadow-green-500/40 transition flex items-center justify-center gap-2"
+            >
+              <WhatsAppLogo size={20} />
+              WhatsApp
+            </a>
             <a
               href="https://github.com/mrhidayat761"
               target="_blank"
@@ -513,9 +601,11 @@ export default function PortfolioFullStack() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="relative z-10 py-12 px-6 border-t border-sky-200/50 text-center text-slate-600 bg-white/40 backdrop-blur-sm">
-        <p className="text-sm">© 2024 Robby Hidayat. Full-Stack Developer | React • Next.js • Node.js</p>
+      {/* Footer Updated */}
+      <footer className="py-8 text-center border-t border-sky-200/50 bg-white/40 backdrop-blur-sm relative z-10">
+        <p className="text-slate-600 text-sm font-medium">
+          &copy; {new Date().getFullYear()} Robby Hidayat | Full-Stack Developer
+        </p>
       </footer>
     </div>
   );
