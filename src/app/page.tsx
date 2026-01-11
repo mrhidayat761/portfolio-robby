@@ -24,7 +24,7 @@ export default function PortfolioFullStack() {
   const scrollToSection = (item) => {
     setIsMobileMenuOpen(false);
     let targetId = "";
-    if (item === 'About') targetId = "home";
+    if (item === 'About') targetId = "about";
     else if (item === 'Projects') targetId = "projects";
     else if (item === 'Services') targetId = "services";
     else if (item === 'Frontend' || item === 'Backend') {
@@ -66,10 +66,9 @@ export default function PortfolioFullStack() {
     { name: "Social Media Clone", description: "Platform media sosial dengan feed, comments, likes, dan follow system", frontend: ["Vue.js", "Vuex", "Tailwind"], backend: ["Node.js", "Express", "PostgreSQL"], features: ["User Feed", "Comments", "Likes", "Follow System"], year: "2023", gradient: "from-sky-400 to-cyan-500" }
   ];
 
-  // --- UPDATED SERVICES DATA ---
   const services = [
     {
-      category: "Business Systems", // KATEGORI BARU UNTUK KASIR & KEUANGAN
+      category: "Business Systems", 
       icon: "📊", 
       items: [
         "Aplikasi POS (Kasir) Web-Based",
@@ -157,7 +156,7 @@ export default function PortfolioFullStack() {
             {/* Logo */}
             <div className="text-2xl font-black cursor-pointer" onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})}>
               <span className="bg-gradient-to-r from-sky-600 to-blue-600 bg-clip-text text-transparent">
-                RobbyDev
+                ROBBY.
               </span>
             </div>
 
@@ -234,12 +233,13 @@ export default function PortfolioFullStack() {
               <button onClick={() => handleNavClick('projects')} className="px-8 py-3 bg-gradient-to-r from-sky-600 to-blue-600 text-white rounded-lg font-semibold hover:shadow-lg hover:shadow-sky-500/40 transition flex items-center gap-2 group">
                 Lihat Proyek <ChevronRight size={20} className="group-hover:translate-x-1 transition" />
               </button>
-             <button 
-  onClick={() => handleNavClick('services')} // Ganti jadi 'services'
-  className="px-8 py-3 border-2 border-sky-600 text-sky-700 rounded-lg font-semibold hover:bg-sky-50 transition backdrop-blur-sm"
->
-  Lihat Layanan
-</button>
+              {/* BUTTON UPDATE: LIHAT LAYANAN */}
+              <button 
+                onClick={() => handleNavClick('services')}
+                className="px-8 py-3 border-2 border-sky-600 text-sky-700 rounded-lg font-semibold hover:bg-sky-50 transition backdrop-blur-sm"
+              >
+                Lihat Layanan
+              </button>
             </div>
           </div>
           <div className="relative">
@@ -380,7 +380,7 @@ export default function PortfolioFullStack() {
         </div>
       </section>
 
-      {/* Services Section (UPDATED LAYOUT) */}
+      {/* Services Section */}
       <section id="services" className="relative z-10 py-24 px-6 bg-white/40 backdrop-blur-sm">
         <div className="max-w-7xl mx-auto">
           <h2 className="text-5xl font-black mb-4 text-slate-900">Jasa & Layanan</h2>
@@ -456,13 +456,17 @@ export default function PortfolioFullStack() {
             <a href={`https://wa.me/6282223750826`} target="_blank" rel="noopener noreferrer" className="px-8 py-4 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-lg font-bold hover:shadow-lg hover:shadow-green-500/40 transition flex items-center justify-center gap-2">
               <WhatsAppLogo size={20} /> WhatsApp
             </a>
+            <a href="https://github.com/mrhidayat761" target="_blank" rel="noopener noreferrer" className="px-8 py-4 border-2 border-sky-600 text-sky-700 rounded-lg font-bold hover:bg-sky-50 transition">
+              🔗 GitHub
+            </a>
           </div>
         </div>
       </section>
 
-      <footer>
-        <p className="text-center py-8 text-slate-600 text-sm bg-white/40 backdrop-blur-sm">
-          &copy; {new Date().getFullYear()} Robby Hidayat. All Rights Reserved.
+      {/* Footer */}
+      <footer className="py-8 text-center border-t border-sky-200/50 bg-white/40 backdrop-blur-sm relative z-10">
+        <p className="text-slate-600 text-sm font-medium">
+          &copy; {new Date().getFullYear()} Robby Hidayat | Full-Stack Developer
         </p>
       </footer>
     </div>
