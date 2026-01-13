@@ -29,7 +29,7 @@ export default function PortfolioFullStack() {
     
     // Pengecekan aman tipe data string
     if (typeof item === 'string') {
-        if (item === 'About') targetId = "home"; // Sesuaikan jika ID section hero kamu 'home' atau 'about'
+        if (item === 'About') targetId = "about"; // Sesuaikan jika ID section hero kamu 'home' atau 'about'
         else if (item === 'Projects') targetId = "projects";
         else if (item === 'Services') targetId = "services";
         else if (item === 'Frontend' || item === 'Backend') {
