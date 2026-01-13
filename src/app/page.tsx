@@ -70,6 +70,7 @@ export default function PortfolioFullStack() {
   // --- BACKEND STACK ---
   const backend = [
     { tech: "PHP", level: 93, description: "Native PHP untuk logika bisnis, integrasi, dan sistem legacy", projects: 20, color: "from-purple-500 to-fuchsia-600" },
+    { tech: "WordPress", level: 88, description: "Custom theme & plugin development, WooCommerce, SEO-ready sites", projects: 11, color: "from-blue-500 to-sky-500" },
     { tech: "Laravel", level: 90, description: "Framework PHP MVC untuk aplikasi web enterprise & UMKM", projects: 14, color: "from-red-500 to-rose-600" },
     { tech: "CodeIgniter", level: 85, description: "Framework PHP ringan untuk proyek cepat & tugas akademik", projects: 9, color: "from-orange-500 to-red-500" },
     { tech: "Node.js", level: 92, description: "Server-side JavaScript dengan Express, Koa, dan Fastify", projects: 15, color: "from-blue-600 to-sky-500" },
