@@ -21,8 +21,8 @@ export default function PortfolioFullStack() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const scrollToSection = (item) => {
-    setIsMobileMenuOpen(false);
+// Tambahkan : string setelah item
+const scrollToSection = (item: string) => {    setIsMobileMenuOpen(false);
     let targetId = "";
     if (item === 'About') targetId = "home";
     else if (item === 'Projects') targetId = "projects";
