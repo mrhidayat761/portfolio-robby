@@ -1,10 +1,9 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { ChevronRight, Code2, Server, Database, Zap, Mail, MessageCircle, Menu, X, BarChart3 } from 'lucide-react';
+import { ChevronRight, Code2, Server, Database, Zap, Mail, MessageCircle, Menu, X, BarChart3, Wrench } from 'lucide-react';
 
 // Komponen Logo WhatsApp
-// Saya tambahkan :any agar tidak error di TypeScript ketat
 const WhatsAppLogo = ({ size = 24, className = "" }: any) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" className={className} xmlns="http://www.w3.org/2000/svg">
     <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
@@ -22,25 +21,24 @@ export default function PortfolioFullStack() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // BAGIAN INI SUDAH DIPERBAIKI (MENGGUNAKAN ANY)
   const scrollToSection = (item: any) => {
     setIsMobileMenuOpen(false);
     let targetId = "";
     
-    // Pengecekan aman tipe data string
     if (typeof item === 'string') {
-        if (item === 'About') targetId = "about"; // Sesuaikan jika ID section hero kamu 'home' atau 'about'
+        if (item === 'About') targetId = "about"; 
         else if (item === 'Projects') targetId = "projects";
         else if (item === 'Services') targetId = "services";
-        else if (item === 'Frontend' || item === 'Backend') {
+        else if (item === 'Contact') targetId = "contact"; 
+        else if (item === 'Frontend' || item === 'Backend' || item === 'Tools') {
           targetId = "tech";
           setActiveTab(item.toLowerCase());
-        } else if (item === 'Tech Stack') { // Tambahan jika item dari menu adalah 'Tech Stack'
+        } else if (item === 'Tech Stack') {
            targetId = "tech";
         }
     }
     
-    // Jika targetId kosong, coba cari berdasarkan ID langsung (lowercase)
+    // Fallback otomatis
     if (!targetId && typeof item === 'string') {
         targetId = item.toLowerCase();
     }
@@ -79,11 +77,17 @@ export default function PortfolioFullStack() {
     { tech: "Python", level: 82, description: "Pengembangan script, data processing, dan integrasi AI/ML", projects: 7, color: "from-green-500 to-emerald-600" },
     { tech: "MySQL", level: 88, description: "Relational database design, query optimization, migration", projects: 16, color: "from-blue-700 to-cyan-600" },
     { tech: "PostgreSQL", level: 86, description: "Database open-source kuat untuk sistem transaksional", projects: 10, color: "from-sky-700 to-blue-600" },
-    { tech: "MongoDB", level: 89, description: "NoSQL database untuk aplikasi fleksibel & scalable", projects: 12, color: "from-cyan-600 to-sky-500" },
-    { tech: "Git & GitHub", level: 95, description: "Version control dan kolaborasi kode dengan best practices", projects: 30, color: "from-gray-600 to-slate-700" },
-    { tech: "Postman", level: 90, description: "Testing & dokumentasi RESTful API secara efisien", projects: 22, color: "from-orange-400 to-amber-500" },
-    { tech: "Nginx", level: 80, description: "Web server & reverse proxy untuk deployment & load balancing", projects: 8, color: "from-green-600 to-teal-600" },
-    { tech: "Authentication", level: 91, description: "JWT, OAuth2, session management, security best practices", projects: 14, color: "from-blue-500 to-cyan-600" }
+    { tech: "MongoDB", level: 89, description: "NoSQL database untuk aplikasi fleksibel & scalable", projects: 12, color: "from-cyan-600 to-sky-500" }
+  ];
+
+  // --- TOOLS & DEVOPS STACK (Baru) ---
+  const tools = [
+    { tech: "Git & GitHub", level: 95, description: "Version control, branching strategy, dan kolaborasi tim", projects: 30, color: "from-gray-600 to-slate-700" },
+    { tech: "Postman", level: 90, description: "API Testing, dokumentasi endpoints, dan automation", projects: 22, color: "from-orange-400 to-amber-500" },
+    { tech: "Nginx", level: 80, description: "Web server configuration, reverse proxy, load balancing", projects: 8, color: "from-green-600 to-teal-600" },
+    { tech: "Docker", level: 75, description: "Containerization aplikasi untuk environment yang konsisten", projects: 5, color: "from-blue-600 to-indigo-500" },
+    { tech: "Authentication", level: 91, description: "Implementasi JWT, OAuth2, dan Session Management", projects: 14, color: "from-red-500 to-pink-600" },
+    { tech: "SEO Optimization", level: 85, description: "Technical SEO, Core Web Vitals, dan performa website", projects: 12, color: "from-yellow-500 to-orange-400" }
   ];
 
   const projects = [
@@ -93,7 +97,6 @@ export default function PortfolioFullStack() {
     { name: "Social Media Clone", description: "Platform media sosial dengan feed, comments, likes, dan follow system", frontend: ["Vue.js", "Vuex", "Tailwind"], backend: ["Node.js", "Express", "PostgreSQL"], features: ["User Feed", "Comments", "Likes", "Follow System"], year: "2023", gradient: "from-sky-400 to-cyan-500" }
   ];
 
-  // --- LAYANAN BARU SESUAI REQUEST ---
   const services = [
     {
       category: "Pembuatan Web Custom",
@@ -133,17 +136,15 @@ export default function PortfolioFullStack() {
     }
   ];
 
-  const skills = [
-    { category: "Frontend Framework", items: ["React", "Next.js", "Vue.js", "TypeScript"] },
-    { category: "Styling & UI", items: ["Tailwind CSS", "CSS3", "Responsive Design", "Components"] },
-    { category: "Backend Runtime", items: ["Node.js", "Express.js", "PHP", "Laravel", "CodeIgniter"] },
-    { category: "Database", items: ["MySQL", "PostgreSQL", "MongoDB", "Optimization"] },
-    { category: "DevOps & Tools", items: ["Git", "GitHub", "Postman", "Nginx", "Docker"] },
-    { category: "Best Practices", items: ["Clean Code", "Testing", "Security", "Performance"] }
-  ];
-
   const whatsappNumber = "6282223750826"; 
   const email = "mrhidayat761@gmail.com";
+
+  // Helper untuk memilih data stack yang aktif
+  const getActiveData = () => {
+    if (activeTab === 'frontend') return frontend;
+    if (activeTab === 'backend') return backend;
+    return tools;
+  };
 
   return (
     <div className="bg-gradient-to-br from-sky-50 via-blue-50 to-cyan-50 text-slate-900 overflow-hidden">
@@ -186,7 +187,8 @@ export default function PortfolioFullStack() {
                 { name: 'Tech Stack', id: 'tech' },
                 { name: 'Projects', id: 'projects' },
                 { name: 'Services', id: 'services' },
-                { name: 'About', id: 'about' }
+                { name: 'About', id: 'about' },
+                { name: 'Contact', id: 'contact' } 
               ].map((item) => (
                 <button 
                   key={item.name} 
@@ -217,7 +219,8 @@ export default function PortfolioFullStack() {
                 { name: 'Tech Stack', id: 'tech' },
                 { name: 'Projects', id: 'projects' },
                 { name: 'Services', id: 'services' },
-                { name: 'About', id: 'about' }
+                { name: 'About', id: 'about' },
+                { name: 'Contact', id: 'contact' } 
               ].map((item) => (
                 <button 
                   key={item.name} 
@@ -247,7 +250,7 @@ export default function PortfolioFullStack() {
               </span>
             </h1>
             <p className="text-lg text-slate-700 mb-10 leading-relaxed max-w-lg font-light">
-              Hallo sob! | Jasa Website & Aplikasi 🛠 Bikin Aplikasi & Website Custom Sesuai Request 🏫 Sekolah | 🏪 Toko | 💼 Kantor | 👤 Personal 💡 Konsultasi Gratis sampai nemu solusi! 
+              ROBBYDEVXVX | Jasa Website & Aplikasi 🛠 Bikin Aplikasi & Website Custom Sesuai Request 🏫 Sekolah | 🏪 Toko | 💼 Kantor | 👤 Personal 💡 Konsultasi Gratis sampai nemu solusi! 
             </p>
             <div className="flex gap-4">
               <button onClick={() => handleNavClick('projects')} className="px-8 py-3 bg-gradient-to-r from-sky-600 to-blue-600 text-white rounded-lg font-semibold hover:shadow-lg hover:shadow-sky-500/40 transition flex items-center gap-2 group">
@@ -288,7 +291,7 @@ export default function PortfolioFullStack() {
         </div>
       </section>
 
-      {/* Tech Stack Section */}
+      {/* Tech Stack Section (UPDATED: Added Tools Tab) */}
       <section id="tech" className="relative z-10 py-24 px-6 bg-white/40 backdrop-blur-sm">
         <div className="max-w-7xl mx-auto">
           <h2 className="text-5xl font-black mb-4 text-slate-900">Tech Stack</h2>
@@ -296,8 +299,8 @@ export default function PortfolioFullStack() {
             Teknologi modern yang saya kuasai untuk membangun aplikasi production-ready
           </p>
 
-          <div className="flex justify-center gap-4 mb-16">
-            {['frontend', 'backend'].map((tab) => (
+          <div className="flex flex-wrap justify-center gap-4 mb-16">
+            {['frontend', 'backend', 'tools'].map((tab) => (
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
@@ -307,13 +310,13 @@ export default function PortfolioFullStack() {
                     : 'bg-white text-slate-900 border-2 border-sky-200 hover:border-sky-300'
                 }`}
               >
-                {tab === 'frontend' ? '🎨 Frontend' : '⚙️ Backend'}
+                {tab === 'frontend' ? '🎨 Frontend' : tab === 'backend' ? '⚙️ Backend' : '🛠️ Tools'}
               </button>
             ))}
           </div>
 
           <div className="grid md:grid-cols-2 gap-6">
-            {(activeTab === 'frontend' ? frontend : backend).map((tech, idx) => (
+            {getActiveData().map((tech, idx) => (
               <div key={idx} className={`bg-gradient-to-br ${tech.color} p-0.5 rounded-xl`}>
                 <div className="bg-white/90 backdrop-blur-sm p-8 rounded-xl hover:bg-white transition">
                   <div className="flex items-start justify-between mb-4">
@@ -426,26 +429,6 @@ export default function PortfolioFullStack() {
         </div>
       </section>
 
-      {/* Skills Section */}
-      <section className="relative z-10 py-24 px-6 max-w-7xl mx-auto">
-        <h2 className="text-5xl font-black mb-4 text-slate-900">Keahlian Lengkap</h2>
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {skills.map((skill, idx) => (
-            <div key={idx} className="bg-white/70 backdrop-blur-sm p-6 rounded-xl border border-sky-200/50 shadow-sm hover:shadow-md transition">
-              <h3 className="font-bold text-slate-900 mb-4">{skill.category}</h3>
-              <ul className="space-y-2.5">
-                {skill.items.map((item, i) => (
-                  <li key={i} className="flex items-center gap-3 text-slate-700 text-sm">
-                    <span className="w-2 h-2 rounded-full bg-gradient-to-r from-sky-600 to-blue-600"></span>
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
-      </section>
-
       {/* Stats Section */}
       <section className="relative z-10 py-24 px-6 bg-white/40 backdrop-blur-sm">
         <div className="max-w-7xl mx-auto">
@@ -461,8 +444,8 @@ export default function PortfolioFullStack() {
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="relative z-10 py-24 px-6 bg-gradient-to-r from-sky-200/50 via-blue-100/50 to-cyan-100/50 border-t border-sky-200/50 border-b border-sky-200/50">
+      {/* CTA Section (CONTACT) */}
+      <section id="contact" className="relative z-10 py-24 px-6 bg-gradient-to-r from-sky-200/50 via-blue-100/50 to-cyan-100/50 border-t border-sky-200/50 border-b border-sky-200/50">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-5xl font-black mb-6 text-slate-900">Siap Untuk Proyek Berikutnya?</h2>
           <p className="text-lg text-slate-700 mb-10">
