@@ -103,7 +103,7 @@ export default function PortfolioFullStack() {
       category: "Pembuatan Web Custom",
       icon: "🛠️",
       items: [
-        "Website custom dari nol dengan Laravel, CodeIgniter, atau native PHP",
+        "Website custom dari nol dengan wordpress,Laravel, CodeIgniter, atau native PHP",
         "Disesuaikan sepenuhnya dengan visi & kebutuhan bisnis Anda",
         "Responsive, cepat, dan mudah dikelola"
       ]
