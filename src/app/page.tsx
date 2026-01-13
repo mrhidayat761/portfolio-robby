@@ -20,7 +20,8 @@ export default function PortfolioFullStack() {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
+// @ts-ignore
+  const scrollToSection = (item) => {
 const scrollToSection = (item: any) => {
   setIsMobileMenuOpen(false);
   let targetId = "";
