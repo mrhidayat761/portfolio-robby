@@ -247,7 +247,7 @@ export default function PortfolioFullStack() {
               </span>
             </h1>
             <p className="text-lg text-slate-700 mb-10 leading-relaxed max-w-lg font-light">
-              Hallo sob!| Jasa Website & Aplikasi 🛠 Bikin Aplikasi & Website Custom Sesuai Request 🏫 Sekolah | 🏪 Toko | 💼 Kantor | 👤 Personal 💡 Konsultasi Gratis sampai nemu solusi! 
+              Hallo sob! | Jasa Website & Aplikasi 🛠 Bikin Aplikasi & Website Custom Sesuai Request 🏫 Sekolah | 🏪 Toko | 💼 Kantor | 👤 Personal 💡 Konsultasi Gratis sampai nemu solusi! 
             </p>
             <div className="flex gap-4">
               <button onClick={() => handleNavClick('projects')} className="px-8 py-3 bg-gradient-to-r from-sky-600 to-blue-600 text-white rounded-lg font-semibold hover:shadow-lg hover:shadow-sky-500/40 transition flex items-center gap-2 group">
